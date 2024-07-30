@@ -18,6 +18,9 @@ import AddProduct from './pages/admin/page/AddProduct';
 import UpdateProduct from './pages/admin/page/UpdateProduct';
 import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import RefundPolicy from './policy/RefundPolicy';
+import TermsConditions from './policy/Terms&Conditions';
+import PrivacyPolicy from './policy/PrivacyPolicy';
 
 function App() {
   return (
@@ -51,6 +54,9 @@ function App() {
           </ProtectedRouteForAdmin>
         } />
         <Route path='/*' element={<NoPage/>} />
+        <Route path='/refundpolicy' element={<RefundPolicy/>} />
+        <Route path='/terms&conditions' element={<TermsConditions/>} />
+        <Route path='/privacypolicy' element={<PrivacyPolicy/>} />
       </Routes>
       <ToastContainer />
      </Router>
