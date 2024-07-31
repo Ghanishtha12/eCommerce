@@ -69,7 +69,7 @@ const ContactUs = () => {
                     <p>Business Name: Tanya kapoor</p>
                     <p>Phone Number: <a href="tel:+918837827095" className="text-blue-500">+918837827095</a></p>
                     <p>Email: <a href="mailto:Kapoorghanishtha2005@gmail.com" className="text-blue-500">Kapoorghanishtha2005@gmail.com</a></p>
-                    <p>The website <a href="https://urbancartt.netlify.app/" className="text-blue-500">https://urbancartt.netlify.app/</a> is owned and operated by Tanya Kapoor ("Company"), a proprietorship firm with its registered office at 2/13, nehru colony, amritsar, 143001.</p>
+                    <p>The website <a href="https://urbancartproj.netlify.app/" className="text-blue-500">https://urbancartproj.netlify.app/</a> is owned and operated by Tanya Kapoor ("Company"), a proprietorship firm with its registered office at 2/13, nehru colony, amritsar, 143001.</p>
                 </div>
             </div>
         </div>
