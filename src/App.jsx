@@ -21,7 +21,9 @@ import 'react-toastify/dist/ReactToastify.css';
 import RefundPolicy from './policy/RefundPolicy';
 import TermsConditions from './policy/Terms&Conditions';
 import PrivacyPolicy from './policy/PrivacyPolicy';
+import ShippingPolicy from './policy/Shipping';
 
+import Contact from './policy/Contact';
 function App() {
   return (
     <MyState>
@@ -57,6 +59,8 @@ function App() {
         <Route path='/refundpolicy' element={<RefundPolicy/>} />
         <Route path='/terms&conditions' element={<TermsConditions/>} />
         <Route path='/privacypolicy' element={<PrivacyPolicy/>} />
+        <Route path='/shippingpolicy' element={<ShippingPolicy/>}/>
+        <Route path='/contact' element={<Contact/>}/>
       </Routes>
       <ToastContainer />
      </Router>
