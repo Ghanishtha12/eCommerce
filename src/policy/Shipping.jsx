@@ -4,7 +4,7 @@ const ShippingPolicy = () => {
     return (
         <div className="bg-gray-100 text-gray-800">
             <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-lg mt-10">
-                <h1 className="text-2xl font-bold mb-4">Order Policy</h1>
+                <h1 className="text-2xl font-bold mb-4">Shipping Policy</h1>
 
                 <div className="mb-4">
                     <h2 className="text-xl font-semibold">Order Cutoff Time:</h2>
