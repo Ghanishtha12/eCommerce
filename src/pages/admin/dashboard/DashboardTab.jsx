@@ -95,7 +95,7 @@ function DashboardTab() {
                                                         {title}
                                                     </td>
                                                     <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        ₹{price}
+                                                        INR{price}
                                                     </td>
                                                     <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
                                                         {category}
@@ -148,8 +148,8 @@ function DashboardTab() {
                                     <tbody>
                                         {/* Example static order data */}
                                         {[
-                                            { customer: 'John Doe', product: 'Product 1', amount: '₹1000', date: '2023-01-01', status: 'Pending' },
-                                            { customer: 'Jane Smith', product: 'Product 2', amount: '₹2000', date: '2023-01-02', status: 'Completed' },
+                                            { customer: 'John Doe', product: 'Product 1', amount: 'INR 1000', date: '2023-01-01', status: 'Pending' },
+                                            { customer: 'Jane Smith', product: 'Product 2', amount: 'INR 2000', date: '2023-01-02', status: 'Completed' },
                                         ].map((order, index) => (
                                             <tr key={index} className="bg-gray-50 border-b dark:border-gray-700" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '' }}>
                                                 <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
