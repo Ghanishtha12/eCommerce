@@ -90,7 +90,7 @@ function Navbar() {
                       <img
                         className="inline-block w-10 h-10 rounded-full"
                         src="https://cdn-icons-png.flaticon.com/128/6997/6997662.png"
-                        alt="Dan_Abromov" />                                        </Link>
+                        alt="N/A" />                                        </Link>
                   </div>
                 </div>
 
@@ -113,7 +113,7 @@ function Navbar() {
       {/* desktop */}
         <header className="relative bg-white">
         <p className="flex h-10 items-center justify-center mix-blend-multiply bg-orange-400 px-4 text-sm font-medium text-white sm:px-6 lg:px-8" style={{ backgroundColor: mode === 'dark' ? 'orange-400' : '', color: mode === 'dark' ? 'white' : '', }}>
-          Get free delivery on orders above INR 999
+        Explore Our Latest Collections and Special Offers!
         </p>
 
         <nav aria-label="Top" className="bg-stone-300 px-4 sm:px-6 lg:px-8 shadow-xl " style={{ backgroundColor: mode === 'dark' ? '#282c34' : '', color: mode === 'dark' ? 'white' : '', }}>

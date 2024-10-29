@@ -23,7 +23,9 @@ import TermsConditions from './policy/Terms&Conditions';
 import PrivacyPolicy from './policy/PrivacyPolicy';
 import ShippingPolicy from './policy/Shipping';
 
+
 import Contact from './policy/Contact';
+import Allproducts from './pages/allproducts/AllProducts';
 function App() {
   return (
     <MyState>
@@ -61,6 +63,7 @@ function App() {
         <Route path='/privacypolicy' element={<PrivacyPolicy/>} />
         <Route path='/shippingpolicy' element={<ShippingPolicy/>}/>
         <Route path='/contact' element={<Contact/>}/>
+        <Route path="/allproducts" element={<Allproducts />} />
       </Routes>
       <ToastContainer />
      </Router>

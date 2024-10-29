@@ -3,14 +3,14 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import myContext from '../../../context/data/myContext';
 import { MdOutlineProductionQuantityLimits } from 'react-icons/md';
 import { FaUser, FaCartPlus } from 'react-icons/fa';
-import { AiFillShopping, AiFillPlusCircle, AiFillDelete } from 'react-icons/ai';
+import { AiFillShopping } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 
 function DashboardTab() {
     const context = useContext(myContext);
-    const { mode, product, edithandle, deleteProduct } = context;
-
-    let [isOpen, setIsOpen] = useState(false);
+    const { mode, product, edithandle, deleteProduct, order, user } = context;
+    // console.log(user);
+    const [isOpen, setIsOpen] = useState(false);
 
     function closeModal() {
         setIsOpen(false);
@@ -20,216 +20,434 @@ function DashboardTab() {
         setIsOpen(true);
     }
 
-    const add = () => {
+    const goToAdd = () => {
         window.location.href = '/addproduct';
     };
 
     return (
-        <div className="container mx-auto">
-            <div className="tab container mx-auto">
-                <Tabs defaultIndex={0} className="">
-                    <TabList className="md:flex md:space-x-8 grid grid-cols-2 text-center gap-4 md:justify-center mb-10">
-                        <Tab>
-                            <button type="button" className="font-medium border-b-2 hover:shadow-purple-800 border-purple-500 text-purple-500 rounded-lg text-xl shadow-[inset_0_0_8px_rgba(0,0,0,0.6)] px-5 py-1.5 text-center bg-[#605d5d12]">
-                                <div className="flex gap-2 items-center">
-                                    <MdOutlineProductionQuantityLimits />Products
-                                </div>
-                            </button>
-                        </Tab>
-                        <Tab>
-                            <button type="button" className="font-medium border-b-2 border-orange-500 bg-[#605d5d12] text-orange-400 hover:shadow-orange-600 rounded-lg text-xl shadow-[inset_0_0_8px_rgba(0,0,0,0.6)] px-5 py-1.5 text-center">
-                                <div className="flex gap-2 items-center">
-                                    <AiFillShopping /> Order
-                                </div>
-                            </button>
-                        </Tab>
-                        <Tab>
-                            <button type="button" className="font-medium border-b-2 border-green-500 bg-[#605d5d12] text-green-500 rounded-lg text-xl hover:shadow-green-800 shadow-[inset_0_0_8px_rgba(0,0,0,0.6)] px-5 py-1.5 text-center">
-                                <div className="flex gap-2 items-center">
-                                    <FaUser /> Users
-                                </div>
-                            </button>
-                        </Tab>
-                    </TabList>
-                    {/* Product Tab */}
-                    <TabPanel>
-                        <div className="px-4 md:px-0 mb-16">
-                            <h1 className="text-center mb-5 text-3xl font-semibold underline" style={{ color: mode === 'dark' ? 'white' : '' }}>Product Details</h1>
-                            <div className="flex justify-end">
+        <div>
+            <div className="container mx-auto">
+                <div className="tab container mx-auto">
+                    <Tabs defaultIndex={0}>
+                        <TabList className="md:flex md:space-x-8 grid grid-cols-2 text-center gap-4 md:justify-center mb-10">
+                            <Tab>
                                 <button
-                                    onClick={add}
                                     type="button"
-                                    className="focus:outline-none text-white bg-orange-400 shadow-[inset_0_0_10px_rgba(0,0,0,0.6)] border hover:bg-orange-600 outline-0 font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
-                                    style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '' }}
+                                    className="font-medium border-b-2 border-purple-500 text-purple-500 rounded-lg text-xl shadow-[inset_0_0_8px_rgba(0,0,0,0.6)] px-5 py-1.5 text-center bg-[#605d5d12]"
                                 >
                                     <div className="flex gap-2 items-center">
-                                        Add Product <FaCartPlus size={20} />
+                                        <MdOutlineProductionQuantityLimits /> Products
                                     </div>
                                 </button>
-                            </div>
-                            <div className="relative overflow-x-auto">
-                                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                    <thead className="text-xs border border-gray-600 text-black uppercase bg-gray-200 shadow-[inset_0_0_8px_rgba(0,0,0,0.6)]" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '' }}>
-                                        <tr>
-                                            <th scope="col" className="px-6 py-3">S.No</th>
-                                            <th scope="col" className="px-6 py-3">Image</th>
-                                            <th scope="col" className="px-6 py-3">Title</th>
-                                            <th scope="col" className="px-6 py-3">Price</th>
-                                            <th scope="col" className="px-6 py-3">Category</th>
-                                            <th scope="col" className="px-6 py-3">Date</th>
-                                            <th scope="col" className="px-6 py-3">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                            </Tab>
+                            <Tab>
+                                <button
+                                    type="button"
+                                    className="font-medium border-b-2 border-pink-500 bg-[#605d5d12] text-pink-500 rounded-lg text-xl shadow-[inset_0_0_8px_rgba(0,0,0,0.6)] px-5 py-1.5 text-center"
+                                >
+                                    <div className="flex gap-2 items-center">
+                                        <AiFillShopping /> Order
+                                    </div>
+                                </button>
+                            </Tab>
+                            <Tab>
+                                <button
+                                    type="button"
+                                    className="font-medium border-b-2 border-green-500 bg-[#605d5d12] text-green-500 rounded-lg text-xl shadow-[inset_0_0_8px_rgba(0,0,0,0.6)] px-5 py-1.5 text-center"
+                                >
+                                    <div className="flex gap-2 items-center">
+                                        <FaUser /> Users
+                                    </div>
+                                </button>
+                            </Tab>
+                        </TabList>
+
+                        {/* Product Tab */}
+                        <TabPanel>
+                            <div className="px-4 md:px-0 mb-16">
+                                <h1
+                                    className="text-center mb-5 text-3xl font-semibold underline"
+                                    style={{ color: mode === 'dark' ? 'white' : '' }}
+                                >
+                                    Product Details
+                                </h1>
+                                <div className="flex justify-end">
+                                    <div onClick={goToAdd}>
+                                        <button
+                                            type="button"
+                                            className="focus:outline-none text-white bg-pink-600 shadow-[inset_0_0_10px_rgba(0,0,0,0.6)] border hover:bg-pink-700 outline-0 font-medium rounded-lg text-sm px-5 py-2.5 mb-2"
+                                            style={{
+                                                backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '',
+                                                color: mode === 'dark' ? 'white' : '',
+                                            }}
+                                        >
+                                            <div className="flex gap-2 items-center">
+                                                Add Product <FaCartPlus size={20} />
+                                            </div>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="relative overflow-x-auto">
+                                    <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                                        <thead
+                                            className="text-xs border border-gray-600 text-black uppercase bg-gray-200 shadow-[inset_0_0_8px_rgba(0,0,0,0.6)]"
+                                            style={{
+                                                backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '',
+                                                color: mode === 'dark' ? 'white' : '',
+                                            }}
+                                        >
+                                            <tr>
+                                                <th scope="col" className="px-6 py-3">
+                                                    S.No
+                                                </th>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Image
+                                                </th>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Title
+                                                </th>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Price
+                                                </th>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Category
+                                                </th>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Date
+                                                </th>
+                                                <th scope="col" className="px-6 py-3">
+                                                    Action
+                                                </th>
+                                            </tr>
+                                        </thead>
                                         {product.map((item, index) => {
                                             const { title, price, imageUrl, category, date } = item;
                                             return (
-                                                <tr key={index} className="bg-gray-50 border-b dark:border-gray-700" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '' }}>
-                                                    <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        {index + 1}.
-                                                    </td>
-                                                    <th scope="row" className="px-6 py-4 font-medium text-black whitespace-nowrap">
-                                                        <img className="w-16" src={imageUrl} alt="img" />
-                                                    </th>
-                                                    <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        {title}
-                                                    </td>
-                                                    <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        INR{price}
-                                                    </td>
-                                                    <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        {category}
-                                                    </td>
-                                                    <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                        {date}
-                                                    </td>
-                                                    <td className="px-6 py-4">
-                                                        <div className="flex gap-2">
-                                                            <div className="flex gap-2 cursor-pointer text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                                <div onClick={() => deleteProduct(item)}>
-                                                                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                                        <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                                                    </svg>
-                                                                </div>
-                                                                <Link to={'/updateproduct'}>
-                                                                    <div onClick={() => edithandle(item)}>
-                                                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                                            <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487c.833-.833 2.183-.833 3.016 0l.634.634c.833.833.833 2.183 0 3.016L8.42 20.229a4.5 4.5 0 01-1.694 1.06l-4.37 1.457a.375.375 0 01-.479-.479l1.457-4.37a4.5 4.5 0 011.06-1.694l12.468-12.468zM6.075 19.96a3.5 3.5 0 00.825-.516l12.468-12.468a1.25 1.25 0 000-1.768l-.634-.634a1.25 1.25 0 00-1.768 0L4.498 17.043a3.5 3.5 0 00-.516.825l-1.18 3.537 3.537-1.18z" />
+                                                <tbody key={index}>
+                                                    <tr
+                                                        className="bg-gray-50 border-b dark:border-gray-700"
+                                                        style={{
+                                                            backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '',
+                                                            color: mode === 'dark' ? 'white' : '',
+                                                        }}
+                                                    >
+                                                        <td
+                                                            className="px-6 py-4 text-black"
+                                                            style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                        >
+                                                            {index + 1}.
+                                                        </td>
+                                                        <th
+                                                            scope="row"
+                                                            className="px-6 py-4 font-medium text-black whitespace-nowrap"
+                                                        >
+                                                            <img className="w-16" src={imageUrl} alt="img" />
+                                                        </th>
+                                                        <td
+                                                            className="px-6 py-4 text-black"
+                                                            style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                        >
+                                                            {title}
+                                                        </td>
+                                                        <td
+                                                            className="px-6 py-4 text-black"
+                                                            style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                        >
+                                                            ₹{price}
+                                                        </td>
+                                                        <td
+                                                            className="px-6 py-4 text-black"
+                                                            style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                        >
+                                                            {category}
+                                                        </td>
+                                                        <td
+                                                            className="px-6 py-4 text-black"
+                                                            style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                        >
+                                                            {date}
+                                                        </td>
+                                                        <td className="px-6 py-4">
+                                                            <div className="flex gap-2">
+                                                                <div
+                                                                    className="flex gap-2 cursor-pointer text-black"
+                                                                    style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                                >
+                                                                    <div onClick={() => deleteProduct(item)}>
+                                                                        <svg
+                                                                            xmlns="http://www.w3.org/2000/svg"
+                                                                            fill="none"
+                                                                            viewBox="0 0 24 24"
+                                                                            strokeWidth={1.5}
+                                                                            stroke="currentColor"
+                                                                            className="w-6 h-6"
+                                                                        >
+                                                                            <path
+                                                                                strokeLinecap="round"
+                                                                                strokeLinejoin="round"
+                                                                                d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                                                                            />
                                                                         </svg>
                                                                     </div>
-                                                                </Link>
+                                                                    <div>
+                                                                        <Link
+                                                                            to={'/updateproduct'}
+                                                                            onClick={() => edithandle(item)}
+                                                                        >
+                                                                            <svg
+                                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                                fill="none"
+                                                                                viewBox="0 0 24 24"
+                                                                                strokeWidth={1.5}
+                                                                                stroke="currentColor"
+                                                                                className="w-6 h-6"
+                                                                            >
+                                                                                <path
+                                                                                    strokeLinecap="round"
+                                                                                    strokeLinejoin="round"
+                                                                                    d="M16.862 4.487l2.65 2.65M19.512 4.487l-2.65 2.65M16.862 4.487a1.875 1.875 0 00-2.65 0l-10 10a1.875 1.875 0 00-.548 1.004l-.737 4.42a.937.937 0 001.087 1.087l4.42-.737a1.875 1.875 0 001.004-.548l10-10a1.875 1.875 0 000-2.65z"
+                                                                                />
+                                                                            </svg>
+                                                                        </Link>
+                                                                    </div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                    </td>
-                                                </tr>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
                                             );
                                         })}
-                                    </tbody>
-                                </table>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                    </TabPanel>
-                    {/* Order Tab */}
-                    <TabPanel>
-                        <div className="px-4 md:px-0 mb-16">
-                            <h1 className="text-center mb-5 text-3xl font-semibold underline" style={{ color: mode === 'dark' ? 'white' : '' }}>Order Details</h1>
-                            <div className="relative overflow-x-auto">
+                        </TabPanel>
+
+                        {/* Order Tab */}
+                        <TabPanel>
+                            <div className="relative overflow-x-auto mb-16">
+                                <h1
+                                    className="text-center mb-5 text-3xl font-semibold underline"
+                                    style={{ color: mode === 'dark' ? 'white' : '' }}
+                                >
+                                    Order Details
+                                </h1>
+                                {order && order.length > 0 ? (
+                                    order.map((allorder, orderIndex) => (
+                                        <table
+                                            key={orderIndex}
+                                            className="w-full text-sm text-left text-gray-500 dark:text-gray-400"
+                                        >
+                                            <thead
+                                                className="text-xs text-black uppercase bg-gray-200 "
+                                                style={{
+                                                    backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '',
+                                                    color: mode === 'dark' ? 'white' : '',
+                                                }}
+                                            >
+                                                <tr>
+                                                    <th scope="col" className="px-6 py-3">
+                                                        S.No.
+                                                    </th>
+                                                    <th scope="col" className="px-6 py-3">
+                                                        Payment Id
+                                                    </th>
+                                                    <th scope="col" className="px-6 py-3">
+                                                        Image
+                                                    </th>
+                                                    <th scope="col" className="px-6 py-3">
+                                                        Title
+                                                    </th>
+                                                    <th scope="col" className="px-6 py-3">
+                                                        Price
+                                                    </th>
+                                                    <th scope="col" className="px-6 py-3">
+                                                        Category
+                                                    </th>
+                                                    <th scope="col" className="px-6 py-3">
+                                                        Name
+                                                    </th>
+                                                    <th scope="col" className="px-6 py-3">
+                                                        Address
+                                                    </th>
+                                                    <th scope="col" className="px-6 py-3">
+                                                        Pincode
+                                                    </th>
+                                                    <th scope="col" className="px-6 py-3">
+                                                        Phone Number
+                                                    </th>
+                                                    <th scope="col" className="px-6 py-3">
+                                                        Email
+                                                    </th>
+                                                    <th scope="col" className="px-6 py-3">
+                                                        Date
+                                                    </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {allorder.cartItems.map((item, itemIndex) => (
+                                                    <tr
+                                                        key={itemIndex}
+                                                        className="bg-gray-50 border-b  dark:border-gray-700"
+                                                        style={{
+                                                            backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '',
+                                                            color: mode === 'dark' ? 'white' : '',
+                                                        }}
+                                                    >
+                                                        <td
+                                                            className="px-6 py-4 text-black"
+                                                            style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                        >
+                                                            {itemIndex + 1}.
+                                                        </td>
+                                                        <td
+                                                            className="px-6 py-4 text-black"
+                                                            style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                        >
+                                                            {allorder.paymentId}
+                                                        </td>
+                                                        <td className="px-6 py-4 text-black">
+                                                            <img className="w-16" src={item.imageUrl} alt="product" />
+                                                        </td>
+                                                        <td
+                                                            className="px-6 py-4 text-black"
+                                                            style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                        >
+                                                            {item.title}
+                                                        </td>
+                                                        <td
+                                                            className="px-6 py-4 text-black"
+                                                            style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                        >
+                                                            ₹{item.price}
+                                                        </td>
+                                                        <td
+                                                            className="px-6 py-4 text-black"
+                                                            style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                        >
+                                                            {item.category}
+                                                        </td>
+                                                        <td
+                                                            className="px-6 py-4 text-black"
+                                                            style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                        >
+                                                            {allorder.addressInfo.name}
+                                                        </td>
+                                                        <td
+                                                            className="px-6 py-4 text-black"
+                                                            style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                        >
+                                                            {allorder.addressInfo.address}
+                                                        </td>
+                                                        <td
+                                                            className="px-6 py-4 text-black"
+                                                            style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                        >
+                                                            {allorder.addressInfo.pincode}
+                                                        </td>
+                                                        <td
+                                                            className="px-6 py-4 text-black"
+                                                            style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                        >
+                                                            {allorder.addressInfo.phoneNumber}
+                                                        </td>
+                                                        <td
+                                                            className="px-6 py-4 text-black"
+                                                            style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                        >
+                                                            {allorder.email}
+                                                        </td>
+                                                        <td
+                                                            className="px-6 py-4 text-black"
+                                                            style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                        >
+                                                            {allorder.date}
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    ))
+                                ) : (
+                                    <p>No orders found.</p>
+                                )}
+                            </div>
+                        </TabPanel>
+
+                        {/* Users Tab */}
+                        <TabPanel>
+                            <div className="relative overflow-x-auto mb-16">
+                                <h1
+                                    className="text-center mb-5 text-3xl font-semibold underline"
+                                    style={{ color: mode === 'dark' ? 'white' : '' }}
+                                >
+                                    User Details
+                                </h1>
                                 <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                    <thead className="text-xs border border-gray-600 text-black uppercase bg-gray-200 shadow-[inset_0_0_8px_rgba(0,0,0,0.6)]" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '' }}>
+                                    <thead
+                                        className="text-xs text-black uppercase bg-gray-200"
+                                        style={{
+                                            backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '',
+                                            color: mode === 'dark' ? 'white' : '',
+                                        }}
+                                    >
                                         <tr>
-                                            <th scope="col" className="px-6 py-3">S.No</th>
-                                            <th scope="col" className="px-6 py-3">Customer</th>
-                                            <th scope="col" className="px-6 py-3">Product</th>
-                                            <th scope="col" className="px-6 py-3">Amount</th>
-                                            <th scope="col" className="px-6 py-3">Date</th>
-                                            <th scope="col" className="px-6 py-3">Status</th>
+                                            <th scope="col" className="px-6 py-3">
+                                                S.No.
+                                            </th>
+                                            <th scope="col" className="px-6 py-3">
+                                                Name
+                                            </th>
+                                            <th scope="col" className="px-6 py-3">
+                                                Email
+                                            </th>
+                                            {/* <th scope="col" className="px-6 py-3">
+                                                Date
+                                            </th> */}
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        {/* Example static order data */}
-                                        {[
-                                            { customer: 'John Doe', product: 'Product 1', amount: 'INR 1000', date: '2023-01-01', status: 'Pending' },
-                                            { customer: 'Jane Smith', product: 'Product 2', amount: 'INR 2000', date: '2023-01-02', status: 'Completed' },
-                                        ].map((order, index) => (
-                                            <tr key={index} className="bg-gray-50 border-b dark:border-gray-700" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '' }}>
-                                                <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
+                                    <tbody> 
+                                        {user.map((item, index) => (
+                                            <tr
+                                                key={index}
+                                                className="bg-gray-50 border-b dark:border-gray-700"
+                                                style={{
+                                                    backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '',
+                                                    color: mode === 'dark' ? 'white' : '',
+                                                }}
+                                            >
+                                                <td
+                                                    className="px-6 py-4 text-black"
+                                                    style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                >
                                                     {index + 1}.
                                                 </td>
-                                                <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                    {order.customer}
+                                                <th
+                                                    scope="row"
+                                                    className="px-6 py-4 font-medium text-black whitespace-nowrap"
+                                                    style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                >
+                                                    {item.name}
+                                                </th>
+                                                <td
+                                                    className="px-6 py-4 text-black"
+                                                    style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                >
+                                                    {item.email}
                                                 </td>
-                                                <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                    {order.product}
-                                                </td>
-                                                <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                    {order.amount}
-                                                </td>
-                                                <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                    {order.date}
-                                                </td>
-                                                <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                    {order.status}
+                                                <td
+                                                    className="px-6 py-4 text-black"
+                                                    style={{ color: mode === 'dark' ? 'white' : '' }}
+                                                >
+                                                    {item.date}
                                                 </td>
                                             </tr>
                                         ))}
                                     </tbody>
                                 </table>
                             </div>
-                        </div>
-                    </TabPanel>
-                    {/* User Tab */}
-                    <TabPanel>
-                        <div className="px-4 md:px-0 mb-16">
-                            <h1 className="text-center mb-5 text-3xl font-semibold underline" style={{ color: mode === 'dark' ? 'white' : '' }}>User Details</h1>
-                            <div className="relative overflow-x-auto">
-                                <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                                    <thead className="text-xs border border-gray-600 text-black uppercase bg-gray-200 shadow-[inset_0_0_8px_rgba(0,0,0,0.6)]" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '' }}>
-                                        <tr>
-                                            <th scope="col" className="px-6 py-3">S.No</th>
-                                            <th scope="col" className="px-6 py-3">Username</th>
-                                            <th scope="col" className="px-6 py-3">Email</th>
-                                            <th scope="col" className="px-6 py-3">Role</th>
-                                            <th scope="col" className="px-6 py-3">Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {/* Example static user data */}
-                                        {[
-                                            { username: 'johndoe', email: 'johndoe@example.com', role: 'Admin' },
-                                            { username: 'janesmith', email: 'janesmith@example.com', role: 'User' },
-                                        ].map((user, index) => (
-                                            <tr key={index} className="bg-gray-50 border-b dark:border-gray-700" style={{ backgroundColor: mode === 'dark' ? 'rgb(46 49 55)' : '', color: mode === 'dark' ? 'white' : '' }}>
-                                                <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                    {index + 1}.
-                                                </td>
-                                                <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                    {user.username}
-                                                </td>
-                                                <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                    {user.email}
-                                                </td>
-                                                <td className="px-6 py-4 text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                    {user.role}
-                                                </td>
-                                                <td className="px-6 py-4">
-                                                    <div className="flex gap-2">
-                                                        <div className="flex gap-2 cursor-pointer text-black" style={{ color: mode === 'dark' ? 'white' : '' }}>
-                                                            <div>
-                                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                                                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.75v.01m0 16.49v.01m0-8.75v.01m0-4.25v.01M12 5a.75.75 0 00-.75-.75h-.75a.75.75 0 000 1.5h.75A.75.75 0 0012 5zm0 8a.75.75 0 00-.75-.75h-.75a.75.75 0 000 1.5h.75A.75.75 0 0012 13zm0 4a.75.75 0 00-.75-.75h-.75a.75.75 0 000 1.5h.75A.75.75 0 0012 17zm0-4.75a.75.75 0 00-.75-.75h-.75a.75.75 0 000 1.5h.75A.75.75 0 0012 12.25z" />
-                                                                </svg>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                        ))}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </TabPanel>
-                </Tabs>
+                        </TabPanel>
+                    </Tabs>
+                </div>
             </div>
         </div>
     );
