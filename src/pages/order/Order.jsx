@@ -1,59 +1,138 @@
-// import React, { useContext } from 'react'
+// // import React, { useContext } from 'react'
+// // import myContext from '../../context/data/myContext';
+// // import Layout from '../../components/Layout/Layout'
+// // import Loader from '../../components/loader/Loader';
+
+// // function Order() {
+// //   const userid = JSON.parse(localStorage.getItem('user')).user.uid
+// //   const context = useContext(myContext)
+// //   const { mode, loading, order } = context
+// //   return (
+// //     <Layout>
+// //       {loading && <Loader/>}
+// //       {order.length > 0 ?
+// //         (<>
+// //           <div className=" h-full pt-10">
+// //             {
+// //               order.filter(obj => obj.userid == userid).map((order) => {
+// //                 // order.cartItems.map()
+// //                 return (
+// //                   <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
+// //                     {
+// //                       order.cartItems.map((item) => {
+// //                         return (
+// //                           <div className="rounded-lg md:w-2/3">
+// //                             <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start" style={{ backgroundColor: mode === 'dark' ? '#282c34' : '', color: mode === 'dark' ? 'white' : '', }}>
+// //                               <img src={item.imageUrl} alt="product-image" className="w-full rounded-lg sm:w-40" />
+// //                               <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+// //                                 <div className="mt-5 sm:mt-0">
+// //                                   <h2 className="text-lg font-bold text-gray-900" style={{ color: mode === 'dark' ? 'white' : '' }}>{item.title}</h2>
+// //                                   <p className="mt-1 text-xs text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>{item.description}</p>
+// //                                   <p className="mt-1 text-xs text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>{item.price}</p>
+// //                                 </div>
+// //                               </div>
+// //                             </div>
+// //                           </div>
+// //                         )
+// //                       })
+// //                     }
+// //                   </div>
+// //                 )
+// //               })
+// //             }
+// //           </div>
+// //         </>)
+// //         :
+// //         (
+// //           <h2 className=' text-center tex-2xl text-white'>Not Order</h2>
+// //         )
+
+// //       }
+// //     </Layout>
+// //   )
+// // }
+
+
+// // export default Order
+
+
+
+// import React, { useContext } from 'react';
 // import myContext from '../../context/data/myContext';
-// import Layout from '../../components/Layout/Layout'
+// import Layout from '../../components/Layout/Layout';
 // import Loader from '../../components/loader/Loader';
 
 // function Order() {
-//   const userid = JSON.parse(localStorage.getItem('user')).user.uid
-//   const context = useContext(myContext)
-//   const { mode, loading, order } = context
+//   const userid = JSON.parse(localStorage.getItem('user')).user.uid;
+//   const context = useContext(myContext);
+//   const { mode, loading, order } = context;
+
 //   return (
 //     <Layout>
-//       {loading && <Loader/>}
-//       {order.length > 0 ?
-//         (<>
-//           <div className=" h-full pt-10">
-//             {
-//               order.filter(obj => obj.userid == userid).map((order) => {
-//                 // order.cartItems.map()
-//                 return (
-//                   <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
-//                     {
-//                       order.cartItems.map((item) => {
-//                         return (
-//                           <div className="rounded-lg md:w-2/3">
-//                             <div className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start" style={{ backgroundColor: mode === 'dark' ? '#282c34' : '', color: mode === 'dark' ? 'white' : '', }}>
-//                               <img src={item.imageUrl} alt="product-image" className="w-full rounded-lg sm:w-40" />
-//                               <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-//                                 <div className="mt-5 sm:mt-0">
-//                                   <h2 className="text-lg font-bold text-gray-900" style={{ color: mode === 'dark' ? 'white' : '' }}>{item.title}</h2>
-//                                   <p className="mt-1 text-xs text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>{item.description}</p>
-//                                   <p className="mt-1 text-xs text-gray-700" style={{ color: mode === 'dark' ? 'white' : '' }}>{item.price}</p>
-//                                 </div>
-//                               </div>
+//       {loading && <Loader />}
+//       {order.length > 0 ? (
+//         <div className="h-full pt-10">
+//           {order
+//             .filter((obj) => obj.userid === userid)
+//             .map((orderItem, orderIndex) => {
+//               return (
+//                 <div
+//                   key={`order-${orderIndex}`} // Unique key for each order
+//                   className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0"
+//                 >
+//                   {orderItem.cartItems.map((item, itemIndex) => {
+//                     return (
+//                       <div key={`item-${orderIndex}-${itemIndex}`} className="rounded-lg md:w-2/3">
+//                         <div
+//                           className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start"
+//                           style={{
+//                             backgroundColor: mode === 'dark' ? '#282c34' : '',
+//                             color: mode === 'dark' ? 'white' : '',
+//                           }}
+//                         >
+//                           <img
+//                             src={item.imageUrl}
+//                             alt="product-image"
+//                             className="w-full rounded-lg sm:w-40"
+//                           />
+//                           <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
+//                             <div className="mt-5 sm:mt-0">
+//                               <h2
+//                                 className="text-lg font-bold text-gray-900"
+//                                 style={{ color: mode === 'dark' ? 'white' : '' }}
+//                               >
+//                                 {item.title}
+//                               </h2>
+//                               <p
+//                                 className="mt-1 text-xs text-gray-700"
+//                                 style={{ color: mode === 'dark' ? 'white' : '' }}
+//                               >
+//                                 {item.description}
+//                               </p>
+//                               <p
+//                                 className="mt-1 text-xs text-gray-700"
+//                                 style={{ color: mode === 'dark' ? 'white' : '' }}
+//                               >
+//                                 {item.price}
+//                               </p>
 //                             </div>
 //                           </div>
-//                         )
-//                       })
-//                     }
-//                   </div>
-//                 )
-//               })
-//             }
-//           </div>
-//         </>)
-//         :
-//         (
-//           <h2 className=' text-center tex-2xl text-white'>Not Order</h2>
-//         )
-
-//       }
+//                         </div>
+//                       </div>
+//                     );
+//                   })}
+//                 </div>
+//               );
+//             })}
+//         </div>
+//       ) : (
+//         <h2 className="text-center text-2xl text-white">No Orders</h2>
+//       )}
 //     </Layout>
-//   )
+//   );
 // }
 
-
-// export default Order
+// export default Order;
 
 
 
@@ -63,7 +142,7 @@ import Layout from '../../components/Layout/Layout';
 import Loader from '../../components/loader/Loader';
 
 function Order() {
-  const userid = JSON.parse(localStorage.getItem('user')).user.uid;
+  const userid = JSON.parse(localStorage.getItem('user'))?.user?.uid;
   const context = useContext(myContext);
   const { mode, loading, order } = context;
 
@@ -71,59 +150,26 @@ function Order() {
     <Layout>
       {loading && <Loader />}
       {order.length > 0 ? (
-        <div className="h-full pt-10">
+        <div className="h-full pt-10 space-y-8 px-4 md:px-0">
           {order
             .filter((obj) => obj.userid === userid)
-            .map((orderItem, orderIndex) => {
-              return (
-                <div
-                  key={`order-${orderIndex}`} // Unique key for each order
-                  className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0"
-                >
-                  {orderItem.cartItems.map((item, itemIndex) => {
-                    return (
-                      <div key={`item-${orderIndex}-${itemIndex}`} className="rounded-lg md:w-2/3">
-                        <div
-                          className="justify-between mb-6 rounded-lg bg-white p-6 shadow-md sm:flex sm:justify-start"
-                          style={{
-                            backgroundColor: mode === 'dark' ? '#282c34' : '',
-                            color: mode === 'dark' ? 'white' : '',
-                          }}
-                        >
-                          <img
-                            src={item.imageUrl}
-                            alt="product-image"
-                            className="w-full rounded-lg sm:w-40"
-                          />
-                          <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
-                            <div className="mt-5 sm:mt-0">
-                              <h2
-                                className="text-lg font-bold text-gray-900"
-                                style={{ color: mode === 'dark' ? 'white' : '' }}
-                              >
-                                {item.title}
-                              </h2>
-                              <p
-                                className="mt-1 text-xs text-gray-700"
-                                style={{ color: mode === 'dark' ? 'white' : '' }}
-                              >
-                                {item.description}
-                              </p>
-                              <p
-                                className="mt-1 text-xs text-gray-700"
-                                style={{ color: mode === 'dark' ? 'white' : '' }}
-                              >
-                                {item.price}
-                              </p>
-                            </div>
-                          </div>
-                        </div>
+            .map((orderItem, orderIndex) => (
+              <div key={`order-${orderIndex}`} className="mx-auto max-w-5xl p-6 bg-white rounded-lg shadow-md" style={{ backgroundColor: mode === 'dark' ? '#282c34' : '', color: mode === 'dark' ? 'white' : '' }}>
+                <h2 className="text-xl font-semibold mb-4" style={{ color: mode === 'dark' ? 'white' : '' }}>Order #{orderIndex + 1}</h2>
+                <div className="space-y-6">
+                  {orderItem.cartItems.map((item, itemIndex) => (
+                    <div key={`item-${orderIndex}-${itemIndex}`} className="flex items-center space-x-4 border-b pb-4 last:border-b-0">
+                      <img src={item.imageUrl} alt="product" className="w-24 h-24 rounded-lg" />
+                      <div className="flex-1">
+                        <h3 className="text-lg font-medium" style={{ color: mode === 'dark' ? 'white' : '' }}>{item.title}</h3>
+                        <p className="text-sm text-gray-500" style={{ color: mode === 'dark' ? 'white' : '' }}>{item.description}</p>
+                        <p className="text-sm font-semibold" style={{ color: mode === 'dark' ? 'white' : '' }}>₹{item.price}</p>
                       </div>
-                    );
-                  })}
+                    </div>
+                  ))}
                 </div>
-              );
-            })}
+              </div>
+            ))}
         </div>
       ) : (
         <h2 className="text-center text-2xl text-white">No Orders</h2>

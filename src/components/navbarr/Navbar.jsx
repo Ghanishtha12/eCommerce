@@ -19,9 +19,11 @@ function Navbar() {
   // console.log(user.user.email)
 
   const logout = () => {
-   localStorage.clear('user');
+   localStorage.removeItem('user');
    window.location.href = '/login'
   }
+
+
 
   const cartItems = useSelector((state) => state.cart)
 
@@ -146,6 +148,10 @@ function Navbar() {
                   <Link to={'/allproducts'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     All Products
                   </Link>
+
+                  {user ?  "" : <a onClick={() => window.location.href = '/login'} className="text-sm font-medium text-gray-700 cursor-pointer  " style={{ color: mode === 'dark' ? 'white' : '', }}>
+                    Login/Signup
+                  </a> }
 
                   {user ?  <Link to={'/order'} className="text-sm font-medium text-gray-700 " style={{ color: mode === 'dark' ? 'white' : '', }}>
                     Order
