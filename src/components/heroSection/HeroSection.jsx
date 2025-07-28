@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import clothing from '../../assets/clothing.png';
 import offer from '../../assets/offer.png';
 import homeDeco from '../../assets/homeDeco.png';
-
 function HeroSection() {
   const images = [clothing, offer, homeDeco];
 
