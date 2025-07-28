@@ -1,33 +1,13 @@
-// import React from 'react';
-
-// function HeroSection() {
-  //   return (
-    //     <div className="w-full h-[500px] flex justify-center items-center overflow-hidden">
-    //       <img className="w-full h-full object-cover" src="src/components/heroSection/Grey Minimalist Special Offer Banner Landscape.png" alt="N/A" />
-    //     </div>
-    //   );
-    // }
-    
-    // export default HeroSection;
-    
-    
-    import React, { useState } from 'react';
+ import React, { useState } from 'react';
 
 function HeroSection() {
 
-    // const settings = {
-    //   dots: true,
-    //   infinite: true,
-    //   speed: 500,
-    //   slidesToShow: 1,
-    //   slidesToScroll: 1,
-    //   autoplay : true
-    // };
+
 
   const images = [
-    'src\\components\\heroSection\\clothing.png',
-    'src\\components\\heroSection\\offer.png',
-    'src\\components\\heroSection\\homeDeco.png',
+    'src\\assets\\clothing.png',
+    'src\\assets\\offer.png',
+    'src\\assets\\homeDeco.png',
   ];
 
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -73,43 +53,4 @@ function HeroSection() {
 export default HeroSection;
 
 
-// import React from 'react';
-// import Slider from 'react-slick';
-// import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
-// import img1 from "./clothing.png"
-// import img2 from "./offer.png"
-// import img3 from "./homeDeco.png"
 
-// function HeroSection() {
-//   const settings = {
-//     dots: true,
-//     infinite: true,
-//     speed: 500,
-//     slidesToShow: 1,
-//     slidesToScroll: 1,
-//     autoplay: true,
-//     autoplaySpeed: 3000,
-//     arrows: true,
-//   };
-
-//   const images = [
-//     img1,
-//     img2,
-//     img3
-//   ];
-
-//   return (
-//     <div className="w-full h-[500px] flex justify-center items-center overflow-hidden">
-//     <Slider {...settings} className="w-full h-full">
-//       {images.map((src, index) => (
-//         <div key={index} className="w-full h-full">
-//           <img className="w-full h-full object-cover" src={src} alt={`Slide ${index + 1}`} />
-//         </div>
-//       ))}
-//     </Slider>
-//   </div>
-//   );
-// }
-
-// export default HeroSection;
