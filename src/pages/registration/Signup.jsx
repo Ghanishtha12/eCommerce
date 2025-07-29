@@ -6,18 +6,22 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth, fireDB } from '../../firebase/FirebaseConfig';
 import { addDoc, collection, Timestamp } from 'firebase/firestore';
 import Loader from '../../components/loader/Loader';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 
 function Signup() {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+
 
     const context = useContext(myContext);
-    const {loading, setLoading} = context;
+    const { loading, setLoading } = context;
 
     const signup = async () => {
         setLoading(true)
-        if(name === "" || email === "" || password === ""){
+        if (name === "" || email === "" || password === "") {
             return toast.error("All fields are required")
         }
         try {
@@ -29,10 +33,10 @@ function Signup() {
                 email: users.user.email,
                 time: Timestamp.now()
             }
-// to store data in firestore
+            // to store data in firestore
             const userRef = collection(fireDB, "users")
-              await addDoc(userRef, user);
-              toast.success("Signup Succesful",{
+            await addDoc(userRef, user);
+            toast.success("Signup Succesful", {
                 position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: true,
@@ -41,34 +45,34 @@ function Signup() {
                 draggable: true,
                 progress: undefined,
                 theme: "colored",
-              })
-              setName("");
-              setEmail("");
-              setPassword("");
-              setLoading(false)
-              
+            })
+            setName("");
+            setEmail("");
+            setPassword("");
+            setLoading(false)
+
 
         } catch (error) {
             console.log(error)
             setLoading(false)
         }
     }
-   
+
     return (
         <div className=' flex justify-center items-center h-screen'>
-           {loading && <Loader/>}
+            {loading && <Loader />}
             <div className=' bg-gray-800 px-10 py-10 rounded-xl '>
                 <div className="">
                     <h1 className='text-center text-white text-xl mb-4 font-bold'>Signup</h1>
                 </div>
                 <div>
                     <input type="text"
-                         value={name}
-                         onChange={(e) => setName(e.target.value)}
-                         name='Name'
-                         className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
-                         placeholder='Name'
-                         />
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        name='Name'
+                        className='bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
+                        placeholder='Name'
+                    />
                 </div>
                 <div>
                     <input type="email"
@@ -79,14 +83,21 @@ function Signup() {
                         placeholder='Email'
                     />
                 </div>
-                <div>
+                <div className="relative">
                     <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
-                        placeholder='Password'
+                        className="bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none pr-10"
+                        placeholder="Password"
                     />
+                    <div
+                    type="button"
+                        className="absolute right-3 top-3 text-black cursor-pointer"
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </div>
                 </div>
                 <div className=' flex justify-center mb-3'>
                     <button

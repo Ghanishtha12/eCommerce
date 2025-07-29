@@ -5,13 +5,16 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebase/FirebaseConfig';
 import { toast } from 'react-toastify';
 import Loader from '../../components/loader/Loader';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+
 
 function Login() {
     const context = useContext(myContext)
-    const { loading, setLoading }= context;
+    const { loading, setLoading } = context;
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
 
     const navigate = useNavigate()
 
@@ -19,7 +22,7 @@ function Login() {
         setLoading(true)
         try {
             const result = await signInWithEmailAndPassword(auth, email, password)
-            toast.success("Login Successful",{
+            toast.success("Login Successful", {
                 position: "top-right",
                 autoClose: 2000,
                 hideProgressBar: true,
@@ -38,10 +41,10 @@ function Login() {
             setLoading(false)
         }
     }
-   
+
     return (
         <div className=' flex justify-center items-center h-screen'>
-          {loading && <Loader/>}
+            {loading && <Loader />}
             <div className=' bg-gray-800 px-10 py-10 rounded-xl '>
                 <div className="">
                     <h1 className='text-center text-white text-xl mb-4 font-bold'>Login</h1>
@@ -49,24 +52,31 @@ function Login() {
                 <div>
                     <input type="email"
                         value={email}
-                        onChange={(e)=>setEmail(e.target.value)}
+                        onChange={(e) => setEmail(e.target.value)}
                         name='email'
                         className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
                         placeholder='Email'
                     />
                 </div>
-                <div>
+                <div className="relative">
                     <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         value={password}
-                        onChange={(e)=>setPassword(e.target.value)}
-                        className=' bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none'
-                        placeholder='Password'
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="bg-gray-600 mb-4 px-2 py-2 w-full lg:w-[20em] rounded-lg text-white placeholder:text-gray-200 outline-none pr-10"
+                        placeholder="Password"
                     />
+                    <div
+                    type="button"
+                        className="absolute right-3 top-3 text-black cursor-pointer"
+                        onClick={() => setShowPassword(!showPassword)}
+                    >
+                        {showPassword ? <FaEyeSlash /> : <FaEye />}
+                    </div>
                 </div>
                 <div className=' flex justify-center mb-3'>
                     <button
-                    onClick={login}
+                        onClick={login}
                         className=' bg-orange-400 w-full text-black font-bold  px-2 py-2 rounded-lg'>
                         Login
                     </button>
