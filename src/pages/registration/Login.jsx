@@ -19,7 +19,52 @@ function Login() {
     const navigate = useNavigate()
 
     const login = async () => {
-        setLoading(true)
+        setLoading(true);
+
+        // Validate email and password
+        if (email === "" || password === "") {
+            toast.error("Please fill all the fields", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "colored",
+            })
+            setLoading(false)
+            return;
+        }
+
+        if (!email.includes("@")) {
+            toast.error("Please enter a valid email address", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "colored",
+            })
+            setLoading(false);
+            return;
+        }
+        
+        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+            toast.error("Please enter a valid email address", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "colored",
+            })
+            setLoading(false);
+            return;
+        }
+      
+
         try {
             const result = await signInWithEmailAndPassword(auth, email, password)
             toast.success("Login Successful", {
@@ -38,6 +83,15 @@ function Login() {
 
         } catch (error) {
             console.log(error)
+            toast.error("Invalid Credentials", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                theme: "colored",
+            })
             setLoading(false)
         }
     }

@@ -22,8 +22,31 @@ function Signup() {
     const signup = async () => {
         setLoading(true)
         if (name === "" || email === "" || password === "") {
-            return toast.error("All fields are required")
+            toast.error("Please fill all the fields");
+            setLoading(false)
+            return; 
         }
+        if (password.length < 8) {
+            toast.error("Password must be at least 8 characters long");
+            setLoading(false);
+            return;
+        }
+        if (!email.includes("@")) {
+            toast.error("Please enter a valid email address");
+            setLoading(false);
+            return;
+        }
+        if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
+            toast.error("Please enter a valid email address");
+            setLoading(false);
+            return;
+        }
+        if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/.test(password)) {
+            toast.error("Password must contain at least one uppercase letter, one lowercase letter, and one number");
+            setLoading(false);
+            return;
+        }
+
         try {
             const users = await createUserWithEmailAndPassword(auth, email, password);
             console.log(users)
@@ -54,6 +77,17 @@ function Signup() {
 
         } catch (error) {
             console.log(error)
+            toast.error("Signup failed", {
+                position: "top-right",
+                autoClose: 2000,
+                hideProgressBar: true,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+            }
+            )
             setLoading(false)
         }
     }
@@ -92,7 +126,7 @@ function Signup() {
                         placeholder="Password"
                     />
                     <div
-                    type="button"
+                        type="button"
                         className="absolute right-3 top-3 text-black cursor-pointer"
                         onClick={() => setShowPassword(!showPassword)}
                     >
